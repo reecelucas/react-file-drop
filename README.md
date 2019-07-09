@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```jsx
-import { FileDrop } from './index';
+import FileDrop from './index';
 
 // Basic
 <FileDrop
