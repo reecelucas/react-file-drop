@@ -6,7 +6,7 @@ const RenderFileDrop = props => {
   const [isOver, setIsOver] = React.useState(false);
   const [validFile, setValidFile] = React.useState(false);
 
-  const onDragEnter = canDrop => {
+  const onDragEnter = ({ canDrop }) => {
     console.log('onEnter', canDrop);
     setIsOver(true);
     setValidFile(canDrop);

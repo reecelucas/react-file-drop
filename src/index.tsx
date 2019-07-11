@@ -7,7 +7,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
   children?: React.ReactNode;
   accept?: string;
   multiple?: boolean;
-  onEnter?: (canDrop: boolean) => void;
+  onEnter?: ({ canDrop }: { canDrop: boolean }) => void;
   onLeave?: () => void;
   onFileDrop: (files: File[]) => void;
 }
@@ -36,7 +36,7 @@ const FileDrop = ({
     }
 
     if (dataTransfer === null) {
-      onEnter(false);
+      onEnter({ canDrop: false });
       return;
     }
 
@@ -55,7 +55,7 @@ const FileDrop = ({
     const validDrop: boolean =
       dataTransfer && dataTransfer.items.length ? items[0] !== undefined : true;
 
-    onEnter(validDrop);
+    onEnter({ canDrop: validDrop });
   };
 
   const onDragLeave = () => {
