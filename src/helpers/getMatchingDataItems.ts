@@ -13,7 +13,7 @@ export default (
     return multiple ? files : [files[0]];
   }
 
-  // Split `accepts` values by ',' then by '/'. Trim everything & lowercase.
+  // Split `acceptVal` by ',' then by '/'. Trim everything & lowercase
   const accepts = acceptVal
     .toLowerCase()
     .split(',')
