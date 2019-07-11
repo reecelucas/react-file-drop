@@ -20,7 +20,7 @@
     "build:esm": "tsc -m esNext --outDir esm",
     "build": "yarn build:cjs && yarn build:esm",
     "prepublishOnly": "yarn lint && yarn test && yarn build",
-    "precommit": "prettier --check 'src/**/*.{ts,tsx}' && npm run lint"
+    "precommit": "prettier --check 'src/**/*.{ts,tsx}' && npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
