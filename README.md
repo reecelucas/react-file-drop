@@ -9,7 +9,7 @@ import FileDrop from './index';
 <FileDrop
   onEnter={({ canDrop }) => console.log(`file can be dropped: "${canDrop}"`)}
   onLeave={() => console.log('user has dragged away from drop target')}
-  onFileDrop={({ files, action }) => console.log({ files, actions })}
+  onFileDrop={(files) => console.log(files)}
 />
 
 // Accept file of specified mime-type
