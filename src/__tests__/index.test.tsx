@@ -154,13 +154,13 @@ describe('FileDrop', () => {
     expect(spy.mock.calls[0][0][1].name).toBe('test-three.jpg');
   });
 
-  test('does not call `onFileDrop` if no `File` object matches the `accept` value provided', () => {
+  test('calls `onFileDrop` with empty array if no `File` object matches the `accept` value provided', () => {
     const spy = jest.fn();
     const dropzone = renderDropzone({ onFileDrop: spy, accept: 'image/*' });
     const files = [createFile('test.pdf', 'application/pdf')];
 
     triggerEvent(dropzone, 'drop', createDragEventObject(files));
-    expect(spy).toHaveBeenCalledTimes(0);
+    expect(spy.mock.calls[0][0]).toHaveLength(0);
   });
 
   test('does not call `onFileDrop` if the `event.dataTransfer` property is `null`', () => {
@@ -185,14 +185,12 @@ describe('FileDrop', () => {
     const onDragOverSpy = jest.fn();
     const onDragEnterSpy = jest.fn();
     const onDropSpy = jest.fn();
-    const onDragEndSpy = jest.fn();
     const onDragLeaveSpy = jest.fn();
 
     const dropzone = renderDropzone({
       onDragOver: onDragOverSpy,
       onDragEnter: onDragEnterSpy,
       onDrop: onDropSpy,
-      onDragEnd: onDragEndSpy,
       onDragLeave: onDragLeaveSpy
     });
     const files = [createFile('test.pdf', 'application/pdf')];
@@ -206,9 +204,6 @@ describe('FileDrop', () => {
 
     triggerEvent(dropzone, 'drop', eventOpts);
     expect(onDropSpy).toHaveBeenCalledTimes(0);
-
-    triggerEvent(dropzone, 'dragend', eventOpts);
-    expect(onDragEndSpy).toHaveBeenCalledTimes(0);
 
     triggerEvent(dropzone, 'dragleave', eventOpts);
     expect(onDragLeaveSpy).toHaveBeenCalledTimes(0);

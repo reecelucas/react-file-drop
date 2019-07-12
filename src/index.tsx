@@ -21,17 +21,13 @@ const FileDrop = ({
   onFileDrop,
   ...props
 }: Props) => {
-  const dragEnterCount = React.useRef(0);
-
   const onDragOver = (event: React.DragEvent) => {
     // Prevent default to allow drop
     event.preventDefault();
   };
 
   const onDragEnter = ({ dataTransfer }: React.DragEvent) => {
-    dragEnterCount.current += 1;
-
-    if (!isFunction(onEnter) || dragEnterCount.current > 1) {
+    if (!isFunction(onEnter)) {
       return;
     }
 
@@ -59,8 +55,6 @@ const FileDrop = ({
   };
 
   const onDragLeave = () => {
-    dragEnterCount.current -= 1;
-
     if (isFunction(onLeave)) {
       onLeave();
     }
@@ -74,16 +68,8 @@ const FileDrop = ({
       return;
     }
 
-    dragEnterCount.current = 0;
     const files = getMatchingFiles(event.dataTransfer, accept, multiple);
-
-    if (files.length > 0) {
-      onFileDrop(files);
-    }
-  };
-
-  const onDragEnd = () => {
-    dragEnterCount.current = 0;
+    onFileDrop(files);
   };
 
   // Spread props before binding handlers to ensure consumers can't override them
@@ -93,7 +79,6 @@ const FileDrop = ({
       onDragOver={onDragOver}
       onDragEnter={onDragEnter}
       onDrop={onDrop}
-      onDragEnd={onDragEnd}
       onDragLeave={onDragLeave}
     >
       {children}

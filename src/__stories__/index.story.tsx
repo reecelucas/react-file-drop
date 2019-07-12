@@ -6,8 +6,26 @@ const RenderFileDrop = props => {
   const [isOver, setIsOver] = React.useState(false);
   const [validFile, setValidFile] = React.useState(false);
 
+  React.useEffect(() => {
+    const stopDragOver = event => {
+      event.preventDefault();
+    };
+
+    const stopDrop = event => {
+      event.preventDefault();
+    };
+
+    window.addEventListener('drop', stopDrop, false);
+    window.addEventListener('dragover', stopDragOver, false);
+
+    return () => {
+      window.removeEventListener('drop', stopDrop);
+      window.removeEventListener('dragover', stopDragOver);
+    };
+  });
+
   const onDragEnter = ({ canDrop }) => {
-    console.log('onEnter', canDrop);
+    console.log('onEnter', { canDrop });
     setIsOver(true);
     setValidFile(canDrop);
   };
